@@ -34,5 +34,4 @@ export const loadList = () => async (dispatch, getState) => {
     type: 'LOAD_LIST_ITEMS',
     payload: response.data.data
   })
-
 }

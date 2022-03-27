@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Typography } from 'antd';
+import { Typography, Switch, Table, Button } from 'antd';
 import { loadList } from '../store/list';
 import './List.css';
 
@@ -9,17 +9,73 @@ const { Text } = Typography;
 
 function List({ loadList, listItems }) {
 
+
+  const columns = [
+    {
+      title: 'Product Name',
+      dataIndex: 'productName',
+      key: 'productName',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price'
+    },
+    {
+      title: 'Notes',
+      dataIndex: 'notes',
+      key: 'notes'
+    },
+    {
+      title: 'Aisle',
+      dataIndex: 'aisle',
+      key: 'aisle'
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions'
+    }
+  ];
+
+
+
   useEffect(() => {
     loadList();
   }, [loadList])
 
+  // function handleChecked(productName) {
+  //   console.log(`${productName} checked!`)
+  // }
+
+
+
+  const addItem = () => {
+    console.log('item added!')
+  }
+
+
   return (
     <div>
-      {listItems.map(singleItem => {
-        console.log('single item: ', singleItem)
+      <Switch>
+        <Text>Test Switch</Text>
+      </Switch>
+      <Button onClick={addItem} >Add Item</Button>
+      {/* {listItems.map((singleItem, id) => {
+        // console.log('single item: ', singleItem)
         return (
-          <div className="singleItem">
-            <Text>Name: {singleItem.productName} </Text>
+          <div className="singleItem" key={id}>
+            <Checkbox onChange={handleChecked}>Name: {singleItem.productName} </Checkbox>
             <Text>Quantity: {singleItem.quantity} </Text>
             <Text>Category: {singleItem.category} </Text>
             <Text>Price: ${singleItem.price} </Text>
@@ -29,7 +85,14 @@ function List({ loadList, listItems }) {
           </div>
         )
       })
-      }
+      } */}
+
+      <Table
+        className="singleItem"
+        dataSource={listItems}
+        columns={columns}
+        rowSelection
+      />
     </div>
   )
 }
