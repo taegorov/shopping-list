@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import { Typography, Switch, Table, Button } from 'antd';
-import { loadList } from '../store/list';
+import { loadList, addItem } from '../../store/list';
 import './List.css';
 
 const { Text } = Typography;
 
 
-function List({ loadList, listItems }) {
-
+function List({ loadList, listItems, addItem }) {
 
   const columns = [
     {
@@ -60,9 +59,9 @@ function List({ loadList, listItems }) {
 
 
 
-  const addItem = () => {
-    console.log('item added!')
-  }
+  // const addItem = () => {
+  //   console.log('item added!')
+  // }
 
 
   return (
@@ -110,6 +109,7 @@ const mapStateToProps = (state) => {
 // for firing actions
 const mapDispatchToProps = {
   loadList,
+  addItem,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
