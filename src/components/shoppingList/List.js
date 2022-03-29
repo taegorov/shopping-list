@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Typography, Switch, Table, Button } from 'antd';
+import { Table } from 'antd';
 import { loadList, addItem } from '../../store/list';
+import PostModal from "./PostModal";
 import './List.css';
 
-const { Text } = Typography;
 
 
 function List({ loadList, listItems, addItem }) {
@@ -66,10 +66,10 @@ function List({ loadList, listItems, addItem }) {
 
   return (
     <div>
-      <Switch>
+      {/* <Switch>
         <Text>Test Switch</Text>
-      </Switch>
-      <Button onClick={addItem} >Add Item</Button>
+      </Switch> */}
+      <PostModal />
       {/* {listItems.map((singleItem, id) => {
         // console.log('single item: ', singleItem)
         return (

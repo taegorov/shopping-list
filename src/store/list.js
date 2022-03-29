@@ -49,14 +49,14 @@ export const loadList = () => async (dispatch, getState) => {
   })
 }
 
-export const addItem = () => async (dispatch, getState) => {
-  const random = parseInt(Math.random() * 10);
-  const newItem = {
-    id: random,
-    productName: "Product " + random,
-    quantity: random,
-    category: "Category " + random,
-  };
+export const addItem = (newItem) => async (dispatch, getState) => {
+  // const random = parseInt(Math.random() * 10);
+  // const newItem = {
+  //   id: random,
+  //   productName: "Product " + random,
+  //   quantity: random,
+  //   category: "Category " + random,
+  // };
   // const response = await axios.post('http://localhost:3001/listitem')
   // console.log('response data for POST: ', response.data.data)
   dispatch({

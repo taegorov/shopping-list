@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import { login } from '../../store/auth'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
+import './Login.css'
 
 function Login({ login }) {
 
