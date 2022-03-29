@@ -59,11 +59,21 @@ export const addItem = (newItem) => async (dispatch, getState) => {
   // };
   // const response = await axios.post('http://localhost:3001/listitem')
   // console.log('response data for POST: ', response.data.data)
-  dispatch({
-    type: 'ADD_LIST_ITEM',
-    payload: newItem,
+  const { auth } = getState();
+  const itemData = await axios({
+    method: 'post',
+    url: 'http://localhost:3001/listitem',
+    data: newItem,
+    headers: {
+      authorization: `bearer ${auth.user.token}`
+    }
   });
-  // setDataSource((existingItems) => {
-  //   return [...existingItems, newItem];
-  // });
+  if (!!itemData.data.success) {
+    dispatch({
+      type: 'ADD_LIST_ITEM',
+      payload: newItem,
+    });
+  } else {
+    console.log('Something went awry')
+  }
 };
