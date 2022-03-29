@@ -37,7 +37,7 @@ function PostModal(props) {
     props.addItem(values);
   }
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
