@@ -19,6 +19,17 @@ export default function listItemReducer(state = initialState, action) {
         ...state,
         shoppingList: [...state.shoppingList, payload]
       }
+    case 'UPDATE_LIST_ITEM':
+      console.log('this is the UPDATE payload: ', payload,)
+      const newList = state.shoppingList.map(lineItem => {
+        console.log('line item id, payload id: ', lineItem.id, payload.id)
+        if (lineItem.id === payload.id) {
+          return { ...state.shoppingList, ...payload }
+        }
+        return { ...lineItem, ...payload }
+      })
+      console.log(newList, 'NEW LIST: ')
+      return { ...state, shoppingList: newList };
     default:
       return state;
   }
@@ -50,19 +61,10 @@ export const loadList = () => async (dispatch, getState) => {
 }
 
 export const addItem = (newItem) => async (dispatch, getState) => {
-  // const random = parseInt(Math.random() * 10);
-  // const newItem = {
-  //   id: random,
-  //   productName: "Product " + random,
-  //   quantity: random,
-  //   category: "Category " + random,
-  // };
-  // const response = await axios.post('http://localhost:3001/listitem')
-  // console.log('response data for POST: ', response.data.data)
   const { auth } = getState();
   const itemData = await axios({
     method: 'post',
-    url: 'http://localhost:3001/listitem',
+    url: `http://localhost:3001/listitem`,
     data: newItem,
     headers: {
       authorization: `bearer ${auth.user.token}`
@@ -77,3 +79,26 @@ export const addItem = (newItem) => async (dispatch, getState) => {
     console.log('Something went awry')
   }
 };
+
+
+export const updateItem = (update) => async (dispatch, getState) => {
+  console.log('PUT LINE ITEM', update)
+  const { auth } = getState();
+  const itemData = await axios({
+    method: 'put',
+    url: `http://localhost:3001/listitem/${update.id}`,
+    data: update,
+    headers: {
+      authorization: `bearer ${auth.user.token}`
+    }
+  });
+  if (!!itemData.data.success) {
+    dispatch({
+      type: 'UPDATE_LIST_ITEM',
+      payload: update,
+    });
+  } else {
+    console.log('Something went awry')
+  }
+};
+

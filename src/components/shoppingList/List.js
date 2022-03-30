@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Table } from 'antd';
-import { loadList, addItem } from '../../store/list';
+import { Table, Space, Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { loadList, updateItem } from '../../store/list';
 import PostModal from "./PostModal";
+import PutModal from "./PutModal";
 import './List.css';
 
 
-
-function List({ loadList, listItems, addItem }) {
+function List({ loadList, listItems }) {
 
   const columns = [
     {
@@ -43,49 +44,38 @@ function List({ loadList, listItems, addItem }) {
     {
       title: 'Actions',
       dataIndex: 'actions',
-      key: 'actions'
+      key: 'actions',
+      render: (text, record, index) => (
+        <>
+          <Space size="middle">
+            <PutModal activeItem={record} />
+            <Button>
+              <DeleteOutlined style={{ color: 'red' }} />
+            </Button>
+          </Space>
+        </>
+      )
+
     }
   ];
 
+
+  // technically not working cause no modal pops up, but pretty sure this is how it's done?
+  // const onEditItem = (record) => {
+  //   setIsEditing(true);
+  //   setEditingItem({ ...record });
+  // };
 
 
   useEffect(() => {
     loadList();
   }, [loadList])
 
-  // function handleChecked(productName) {
-  //   console.log(`${productName} checked!`)
-  // }
 
-
-
-  // const addItem = () => {
-  //   console.log('item added!')
-  // }
-
-
+  // // // === === === return is here === === === // // // 
   return (
     <div>
-      {/* <Switch>
-        <Text>Test Switch</Text>
-      </Switch> */}
       <PostModal />
-      {/* {listItems.map((singleItem, id) => {
-        // console.log('single item: ', singleItem)
-        return (
-          <div className="singleItem" key={id}>
-            <Checkbox onChange={handleChecked}>Name: {singleItem.productName} </Checkbox>
-            <Text>Quantity: {singleItem.quantity} </Text>
-            <Text>Category: {singleItem.category} </Text>
-            <Text>Price: ${singleItem.price} </Text>
-            <Text>Notes: {singleItem.notes} </Text>
-            <Text>{singleItem.image} </Text>
-            <Text>Aisle: {singleItem.aisle} </Text>
-          </div>
-        )
-      })
-      } */}
-
       <Table
         className="singleItem"
         dataSource={listItems}
@@ -109,7 +99,7 @@ const mapStateToProps = (state) => {
 // for firing actions
 const mapDispatchToProps = {
   loadList,
-  addItem,
+  updateItem,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
