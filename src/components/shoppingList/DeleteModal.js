@@ -17,6 +17,7 @@ function DeleteModal({ activeItem, deleteItem }) {
 
   const showModal = () => {
     setVisiblePutModal(true);
+    setModalText('');
   };
 
   const handleOk = (values) => {

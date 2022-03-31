@@ -15,6 +15,7 @@ function List({ loadList, listItems }) {
       title: 'Product Name',
       dataIndex: 'productName',
       key: 'productName',
+      render: text => <a href>{text}</a>,
     },
     {
       title: 'Quantity',
@@ -67,7 +68,7 @@ function List({ loadList, listItems }) {
     <div>
       <PostModal />
       <Table
-        className="singleItem"
+        className="table"
         dataSource={listItems}
         columns={columns}
         rowSelection
