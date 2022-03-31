@@ -20,13 +20,12 @@ export default function listItemReducer(state = initialState, action) {
         shoppingList: [...state.shoppingList, payload]
       }
     case 'UPDATE_LIST_ITEM':
-      console.log('this is the UPDATE payload: ', payload,)
       const newList = state.shoppingList.map(lineItem => {
-        console.log('line item id, payload id: ', lineItem.id, payload.id)
         if (lineItem.id === payload.id) {
-          return { ...state.shoppingList, ...payload }
+          // return { ...state.shoppingList, ...payload }
+          return { ...lineItem, ...payload }
         }
-        return { ...lineItem, ...payload }
+        return lineItem
       })
       console.log(newList, 'NEW LIST: ')
       return { ...state, shoppingList: newList };
@@ -81,12 +80,12 @@ export const addItem = (newItem) => async (dispatch, getState) => {
 };
 
 
-export const updateItem = (update) => async (dispatch, getState) => {
-  console.log('PUT LINE ITEM', update)
+export const updateItem = (update, updateId) => async (dispatch, getState) => {
+  console.log('PUT LINE ITEM', update, updateId)
   const { auth } = getState();
   const itemData = await axios({
     method: 'put',
-    url: `http://localhost:3001/listitem/${update.id}`,
+    url: `http://localhost:3001/listitem/${updateId}`,
     data: update,
     headers: {
       authorization: `bearer ${auth.user.token}`
@@ -95,7 +94,7 @@ export const updateItem = (update) => async (dispatch, getState) => {
   if (!!itemData.data.success) {
     dispatch({
       type: 'UPDATE_LIST_ITEM',
-      payload: update,
+      payload: { ...update, id: updateId }
     });
   } else {
     console.log('Something went awry')

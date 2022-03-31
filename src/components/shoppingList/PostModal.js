@@ -33,7 +33,7 @@ function PostModal(props) {
   };
 
   const onFinish = (values) => {
-    console.log('on finish', values)
+    console.log('on finish POST', values)
     props.addItem(values);
   }
 

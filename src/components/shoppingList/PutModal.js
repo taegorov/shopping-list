@@ -8,17 +8,15 @@ import { EditOutlined } from '@ant-design/icons';
 // portions of this code are borrowed from antd docs
 
 function PutModal({ activeItem, updateItem }) {
-  const [visible, setVisible] = useState(false);
+  const [visiblePutModal, setVisiblePutModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState('');
   const [form] = Form.useForm();
-  // const [isEditing, setIsEditing] = useState(false);
-  // const [editingItem, setEditingItem] = useState(null);
   const { TextArea } = Input;
 
 
   const showModal = () => {
-    setVisible(true);
+    setVisiblePutModal(true);
   };
 
   const handleOk = () => {
@@ -26,26 +24,26 @@ function PutModal({ activeItem, updateItem }) {
     setConfirmLoading(true);
     form.submit();
     setTimeout(() => {
-      setVisible(false);
+      setVisiblePutModal(false);
       setConfirmLoading(false);
     }, 1000);
   };
 
 
   const handleCancel = () => {
-    setVisible(false);
+    setVisiblePutModal(false);
   };
 
   const onFinish = (values) => {
-    console.log('on finish UPDATE:', values)
-    updateItem(values);
+    console.log('on finish UPDATE:', values, activeItem.id)
+    updateItem(values, activeItem.id);
   }
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  console.log('ACTIVE ITEM IS: ', activeItem);
+  // console.log('ACTIVE ITEM IS: ', activeItem);
 
   const title = `Update ${activeItem.productName}`
 
@@ -57,7 +55,7 @@ function PutModal({ activeItem, updateItem }) {
       </Button>
       <Modal
         title={title}
-        visible={visible}
+        visible={visiblePutModal}
         onOk={handleOk}
         okText="Save"
         confirmLoading={confirmLoading}
