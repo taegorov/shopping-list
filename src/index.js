@@ -7,6 +7,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store/index.js';
 
+console.log('processENV prod: ', process.env.REACT_APP_SERVER_PROD)
+console.log('processENV dev: ', process.env.REACT_APP_SERVER_DEV)
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store()}>
