@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { root } from '../helper';
 // require('dotenv').config();
 
 const initialState = {
@@ -44,8 +45,11 @@ export default function listItemReducer(state = initialState, action) {
   }
 }
 
+
+
 // // // === === === === === === === === === === // // //
-// // // === === === actions below === === === // // // 
+// // // === === ===  ACTIONS BELOW  === === === // // // 
+// // // === === === === === === === === === === // // //
 export const getList = () => {
   const listItems = initialState.shoppingList;
   console.log('👾 initial state', listItems);
@@ -59,7 +63,8 @@ export const loadList = () => async (dispatch, getState) => {
   const { auth } = getState();
   const response = await axios({
     method: 'get',
-    url: 'http://localhost:3001/listitem',
+    // url: 'http://localhost:3001/listitem',
+    url: `${root}/listitem`,
     headers: {
       authorization: `bearer ${auth.user.token}`
     }
@@ -75,7 +80,8 @@ export const addItem = (newItem) => async (dispatch, getState) => {
   const { auth } = getState();
   const itemData = await axios({
     method: 'post',
-    url: `http://localhost:3001/listitem`,
+    // url: `http://localhost:3001/listitem`,
+    url: `${root}/listitem`,
     data: newItem,
     headers: {
       authorization: `bearer ${auth.user.token}`
@@ -98,7 +104,8 @@ export const updateItem = (update, updateId) => async (dispatch, getState) => {
   const { auth } = getState();
   const itemData = await axios({
     method: 'put',
-    url: `http://localhost:3001/listitem/${updateId}`,
+    // url: `http://localhost:3001/listitem/${updateId}`,
+    url: `${root}/listitem/${updateId}`,
     data: update,
     headers: {
       authorization: `bearer ${auth.user.token}`
@@ -119,7 +126,8 @@ export const deleteItem = (deleteId) => async (dispatch, getState) => {
   const { auth } = getState();
   const itemData = await axios({
     method: 'delete',
-    url: `http://localhost:3001/listitem/${deleteId}`,
+    // url: `http://localhost:3001/listitem/${deleteId}`,
+    url: `${root}/listitem/${deleteId}`,
     data: deleteId,
     headers: {
       authorization: `bearer ${auth.user.token}`

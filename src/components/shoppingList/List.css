@@ -1,5 +1,10 @@
-.singleItem {
+.table {
   background-color: white;
   padding: .5em;
   border-bottom: 1em;
+  margin: 1em;
+}
+
+#putButton {
+  margin-left: 1em;
 }

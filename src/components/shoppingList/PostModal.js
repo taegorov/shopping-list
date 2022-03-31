@@ -46,7 +46,7 @@ function PostModal(props) {
   return (
     <>
       {/* <Button onClick={props.addItem}>Add Item (modal)</Button> */}
-      <Button type="primary" onClick={showModal}>
+      <Button id="putButton" type="primary" onClick={showModal}>
         Add Item
       </Button>
       <Modal
