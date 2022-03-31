@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Table, Space, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Table, Space } from 'antd';
 import { loadList, updateItem } from '../../store/list';
 import PostModal from "./PostModal";
 import PutModal from "./PutModal";
+import DeleteModal from "./DeleteModal";
 import './List.css';
 
 
@@ -49,22 +49,12 @@ function List({ loadList, listItems }) {
         <>
           <Space size="middle">
             <PutModal activeItem={record} />
-            <Button>
-              <DeleteOutlined style={{ color: 'red' }} />
-            </Button>
+            <DeleteModal activeItem={record} />
           </Space>
         </>
       )
-
     }
   ];
-
-
-  // technically not working cause no modal pops up, but pretty sure this is how it's done?
-  // const onEditItem = (record) => {
-  //   setIsEditing(true);
-  //   setEditingItem({ ...record });
-  // };
 
 
   useEffect(() => {
