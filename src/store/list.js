@@ -9,31 +9,43 @@ const initialState = {
 export default function listItemReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+
     case 'LOAD_LIST_ITEMS':
       return {
         ...state,
         shoppingList: payload,
-      }
+      };
+
     case 'ADD_LIST_ITEM':
       return {
         ...state,
         shoppingList: [...state.shoppingList, payload]
-      }
+      };
+
     case 'UPDATE_LIST_ITEM':
       const newList = state.shoppingList.map(lineItem => {
         if (lineItem.id === payload.id) {
-          // return { ...state.shoppingList, ...payload }
           return { ...lineItem, ...payload }
         }
         return lineItem
       })
-      console.log(newList, 'NEW LIST: ')
-      return { ...state, shoppingList: newList };
+      return {
+        ...state,
+        shoppingList: newList
+      };
+
+    case 'DELETE_LIST_ITEM':
+      return {
+        ...state, shoppingList: state.shoppingList.filter(lineItem => lineItem.id !== payload.id)
+      }
+
     default:
       return state;
   }
 }
 
+// // // === === === === === === === === === === // // //
+// // // === === === actions below === === === // // // 
 export const getList = () => {
   const listItems = initialState.shoppingList;
   console.log('👾 initial state', listItems);
@@ -102,3 +114,23 @@ export const updateItem = (update, updateId) => async (dispatch, getState) => {
   }
 };
 
+export const deleteItem = (deleteId) => async (dispatch, getState) => {
+  console.log('DELETE LINE ITEM', deleteId)
+  const { auth } = getState();
+  const itemData = await axios({
+    method: 'delete',
+    url: `http://localhost:3001/listitem/${deleteId}`,
+    data: deleteId,
+    headers: {
+      authorization: `bearer ${auth.user.token}`
+    }
+  });
+  if (!!itemData.data.success) {
+    dispatch({
+      type: 'DELETE_LIST_ITEM',
+      payload: { id: deleteId }
+    });
+  } else {
+    console.log('Something went awry')
+  }
+};
