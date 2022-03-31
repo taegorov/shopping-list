@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { root } from '../helper'
 
 const initialState = {
   user: null
@@ -30,6 +31,7 @@ export const login = (username, password) => async (dispatch, getState) => {
   const response = await axios({
     method: 'post',
     url: 'http://localhost:3001/signin',
+    url: `${root}/signin`,
     headers: {
       authorization: `basic ${btoa(authString)}`
     }
@@ -41,3 +43,5 @@ export const login = (username, password) => async (dispatch, getState) => {
   })
   return true;
 }
+
+//add localstorage set for login
