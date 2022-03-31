@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateItem } from '../../store/list';
 import { Button, Modal, Form, Input, InputNumber } from 'antd'
@@ -13,6 +13,9 @@ function PutModal({ activeItem, updateItem }) {
   const [modalText, setModalText] = useState('');
   const [form] = Form.useForm();
   const { TextArea } = Input;
+  useEffect(() => {
+    form.setFieldsValue(activeItem)
+  }, [visiblePutModal, activeItem, form])
 
 
   const showModal = () => {
@@ -47,6 +50,7 @@ function PutModal({ activeItem, updateItem }) {
 
   const title = `Update ${activeItem.productName}`
 
+
   // // // === === === return is here === === === // // // 
   return (
     <>
@@ -66,7 +70,7 @@ function PutModal({ activeItem, updateItem }) {
           name="updateItem"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: false }}
+          // initialValues={activeItem}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -75,8 +79,8 @@ function PutModal({ activeItem, updateItem }) {
           <Form.Item
             label="Product Name"
             name="productName"
-            initialValue={activeItem.productName}
-          // rules={[{ required: true, message: 'Please add product name' }]}
+            // initialValue={activeItem.productName}
+            rules={[{ required: true, message: 'Please add product name' }]}
 
           >
             <Input />
@@ -85,7 +89,7 @@ function PutModal({ activeItem, updateItem }) {
             label="Quantity"
             name="quantity"
             rules={[{ required: false }]}
-            initialValue={activeItem.quantity}
+          // initialValue={activeItem.quantity}
           >
             <InputNumber />
           </Form.Item>
@@ -93,7 +97,7 @@ function PutModal({ activeItem, updateItem }) {
             label="Category"
             name="category"
             rules={[{ required: false }]}
-            initialValue={activeItem.category}
+          // initialValue={activeItem.category}
           >
             <Input />
           </Form.Item>
@@ -101,7 +105,7 @@ function PutModal({ activeItem, updateItem }) {
             label="Price"
             name="price"
             rules={[{ required: false }]}
-            initialValue={activeItem.price}
+          // initialValue={activeItem.price}
           >
             <InputNumber />
           </Form.Item>
@@ -109,7 +113,7 @@ function PutModal({ activeItem, updateItem }) {
             label="Notes"
             name="notes"
             rules={[{ required: false }]}
-            initialValue={activeItem.notes}
+          // initialValue={activeItem.notes}
           >
             <TextArea rows={3} />
           </Form.Item>
@@ -117,7 +121,7 @@ function PutModal({ activeItem, updateItem }) {
             label="Aisle"
             name="aisle"
             rules={[{ required: false }]}
-            initialValue={activeItem.aisle}
+          // initialValue={activeItem.aisle}
           >
             <Input />
           </Form.Item>

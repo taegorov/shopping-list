@@ -69,10 +69,11 @@ export const addItem = (newItem) => async (dispatch, getState) => {
       authorization: `bearer ${auth.user.token}`
     }
   });
+  // console.log('ITEM DATA: ', itemData)
   if (!!itemData.data.success) {
     dispatch({
       type: 'ADD_LIST_ITEM',
-      payload: newItem,
+      payload: itemData.data.data,
     });
   } else {
     console.log('Something went awry')
