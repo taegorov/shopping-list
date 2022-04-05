@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import { Table, Space } from 'antd';
+import Media from 'react-media';
 import { loadList, updateItem } from '../../store/list';
 import PostModal from "./PostModal";
 import PutModal from "./PutModal";
@@ -65,15 +66,43 @@ function List({ loadList, listItems }) {
 
   // // // === === === return is here === === === // // // 
   return (
-    <div>
-      <PostModal />
-      <Table
-        className="table"
-        dataSource={listItems}
-        columns={columns}
-        rowSelection
-      />
-    </div>
+
+    <Media query="(max-width: 599px)">
+      {(matches) =>
+        matches ? (
+          <>
+            <div>
+              {listItems.map(singleItem => {
+                console.log('single item: ', singleItem)
+                return (
+                  <div className="singleItem">
+                    <p>Name: {singleItem.productName} </p>
+                    <p>Quantity: {singleItem.quantity} </p>
+                    <p>Category: {singleItem.category} </p>
+                    <p>Price: ${singleItem.price} </p>
+                    <p>Notes: {singleItem.notes} </p>
+                    <p>{singleItem.image} </p>
+                    <p>Aisle: {singleItem.aisle} </p>
+                  </div>
+                )
+              })
+              }
+            </div>
+          </>
+        ) : (
+          <>
+            <PostModal />
+            <Table
+              className="table"
+              dataSource={listItems}
+              columns={columns}
+              rowSelection
+            />
+          </>
+        )
+      }
+    </Media>
+
   )
 }
 

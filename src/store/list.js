@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { root } from '../helper';
-// require('dotenv').config();
+require('dotenv').config();
 
 const initialState = {
   shoppingList: [],
