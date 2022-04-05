@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { deleteItem } from '../../store/list';
 import { Button, Modal } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons';
+import './List.css';
 
 
 // portions of this code are borrowed from antd docs
@@ -44,7 +45,7 @@ function DeleteModal({ activeItem, deleteItem }) {
   // // // === === === return is here === === === // // // 
   return (
     <>
-      <Button onClick={showModal}>
+      <Button type="text" onClick={showModal}>
         <DeleteOutlined style={{ color: 'red' }} />
       </Button>
       <Modal

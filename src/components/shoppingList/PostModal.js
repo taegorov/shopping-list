@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../store/list';
 import { Button, Modal, Form, Input, InputNumber } from 'antd'
+import './List.css';
+
 
 // portions of this code are borrowed from antd docs
 
@@ -46,7 +48,7 @@ function PostModal(props) {
   return (
     <>
       {/* <Button onClick={props.addItem}>Add Item (modal)</Button> */}
-      <Button id="putButton" type="primary" onClick={showModal}>
+      <Button id="postButton" type="primary" onClick={showModal}>
         Add Item
       </Button>
       <Modal

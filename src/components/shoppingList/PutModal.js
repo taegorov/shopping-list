@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { updateItem } from '../../store/list';
 import { Button, Modal, Form, Input, InputNumber } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
+import './List.css';
+
 
 
 // portions of this code are borrowed from antd docs
@@ -13,7 +15,9 @@ function PutModal({ activeItem, updateItem }) {
   const [modalText, setModalText] = useState('');
   const [form] = Form.useForm();
   const { TextArea } = Input;
+
   useEffect(() => {
+    window.scrollTo(0, 0)
     form.setFieldsValue(activeItem)
   }, [visiblePutModal, activeItem, form])
 
@@ -54,7 +58,7 @@ function PutModal({ activeItem, updateItem }) {
   // // // === === === return is here === === === // // // 
   return (
     <>
-      <Button onClick={showModal}>
+      <Button type="text" onClick={showModal}>
         <EditOutlined />
       </Button>
       <Modal

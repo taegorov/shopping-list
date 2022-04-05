@@ -5,6 +5,16 @@
   margin: 1em;
 }
 
-#putButton {
-  margin-left: 1em;
+#postButton {
+  margin: 1em;
+}
+
+#actionsButton {
+  /* border: none; */
+}
+
+.singleItem {
+  margin: 0 auto;
+  margin-bottom: 1em;
+  width: 90%;
 }
