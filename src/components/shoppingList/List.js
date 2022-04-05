@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Table, Space } from 'antd';
 import Media from 'react-media';
+import { Table, Space, Card, Avatar } from 'antd';
+import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
 import PostModal from "./PostModal";
 import PutModal from "./PutModal";
@@ -63,27 +64,41 @@ function List({ loadList, listItems }) {
     loadList();
   }, [loadList])
 
+  // allows adding Avatar to Card (from antd docs)
+  const { Meta } = Card;
 
+
+
+  // // // === === === === === === === === === === // // //
   // // // === === === return is here === === === // // // 
   return (
-
-    <Media query="(max-width: 599px)">
+    <Media query="(max-width: 480px)">
       {(matches) =>
         matches ? (
           <>
+            <PostModal />
             <div>
               {listItems.map(singleItem => {
-                console.log('single item: ', singleItem)
+                // console.log('single item: ', singleItem)
                 return (
-                  <div className="singleItem">
-                    <p>Name: {singleItem.productName} </p>
+                  <Card
+                    className="singleItem"
+                    actions={[
+                      <CheckSquareOutlined key="check" />,
+                      <PutModal activeItem={singleItem} />,
+                      <DeleteModal activeItem={singleItem} />,
+                    ]}
+                    title={singleItem.productName}
+                  // description="This is the description"
+                  >
+                    {/* <p>Aisle: {singleItem.aisle} </p>
                     <p>Quantity: {singleItem.quantity} </p>
                     <p>Category: {singleItem.category} </p>
                     <p>Price: ${singleItem.price} </p>
-                    <p>Notes: {singleItem.notes} </p>
-                    <p>{singleItem.image} </p>
-                    <p>Aisle: {singleItem.aisle} </p>
-                  </div>
+                    <p>{singleItem.image} </p> */}
+                    <p>{singleItem.notes} </p>
+                    <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
+                  </Card>
                 )
               })
               }
