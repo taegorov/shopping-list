@@ -1,23 +1,25 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import Media from 'react-media';
+import { useNavigate } from 'react-router-dom'
 import { Table, Space, Card, Avatar } from 'antd';
 import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
+// import { isAuthenticated, user } from '../../store/auth';
 import PostModal from "./PostModal";
 import PutModal from "./PutModal";
 import DeleteModal from "./DeleteModal";
 import './List.css';
 
 
-function List({ loadList, listItems }) {
+function List({ loadList, listItems, isAuthenticated, user }) {
 
   const columns = [
     {
       title: 'Product Name',
       dataIndex: 'productName',
       key: 'productName',
-      render: text => <a href>{text}</a>,
+      // render: text => <a href>{text}</a>,
     },
     {
       title: 'Quantity',
@@ -59,18 +61,28 @@ function List({ loadList, listItems }) {
     }
   ];
 
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     loadList();
-  }, [loadList])
+    if (isAuthenticated === false) {
+      navigate("/")
+    }
+  }, [loadList, isAuthenticated, navigate])
 
   // allows adding Avatar to Card (from antd docs)
   const { Meta } = Card;
+
+  console.log('is authenticated: ', isAuthenticated)
+  console.log('user: ', user)
+
 
 
 
   // // // === === === === === === === === === === // // //
   // // // === === === return is here === === === // // // 
+  // // // === === === === === === === === === === // // //
   return (
     <Media query="(max-width: 480px)">
       {(matches) =>
@@ -125,9 +137,11 @@ function List({ loadList, listItems }) {
 // for rendering in the dom
 // map redux state to component props
 const mapStateToProps = (state) => {
-  // console.log(state)
+  console.log(state)
   return {
-    listItems: state.shoppingList.shoppingList
+    listItems: state.shoppingList.shoppingList,
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
   }
 }
 

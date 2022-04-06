@@ -4,7 +4,8 @@ require('dotenv').config();
 
 
 const initialState = {
-  user: null
+  user: null,
+  isAuthenticated: false,
 }
 
 export default function authReducer(state = initialState, action) {
@@ -14,11 +15,13 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         user: payload,
+        isAuthenticated: true,
       }
     case 'LOGOUT':
       return {
         ...state,
-        user: null
+        user: null,
+        isAuthenticated: false,
       }
     default:
       return state;
@@ -45,5 +48,6 @@ export const login = (username, password) => async (dispatch, getState) => {
   })
   return true;
 }
+
 
 //add localstorage set for login
