@@ -59,11 +59,9 @@ export const getList = () => {
 }
 
 export const loadList = () => async (dispatch, getState) => {
-  // const response = await axios.get('http://localhost:3001/listitem')
   const { auth } = getState();
   const response = await axios({
     method: 'get',
-    // url: 'http://localhost:3001/listitem',
     url: `${root}/listitem`,
     headers: {
       authorization: `bearer ${auth.user.token}`
@@ -80,7 +78,6 @@ export const addItem = (newItem) => async (dispatch, getState) => {
   const { auth } = getState();
   const itemData = await axios({
     method: 'post',
-    // url: `http://localhost:3001/listitem`,
     url: `${root}/listitem`,
     data: newItem,
     headers: {
@@ -104,7 +101,6 @@ export const updateItem = (update, updateId) => async (dispatch, getState) => {
   const { auth } = getState();
   const itemData = await axios({
     method: 'put',
-    // url: `http://localhost:3001/listitem/${updateId}`,
     url: `${root}/listitem/${updateId}`,
     data: update,
     headers: {

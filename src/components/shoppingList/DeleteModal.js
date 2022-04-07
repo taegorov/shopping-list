@@ -26,6 +26,7 @@ function DeleteModal({ activeItem, deleteItem }) {
     setConfirmLoading(true);
     deleteItem(activeItem.id);
     setTimeout(() => {
+      setModalText('');
       setVisiblePutModal(false);
       setConfirmLoading(false);
     }, 1000);
