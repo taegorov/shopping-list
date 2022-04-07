@@ -31,6 +31,7 @@ function PutModal({ activeItem, updateItem }) {
     setConfirmLoading(true);
     form.submit();
     setTimeout(() => {
+      setModalText('');
       setVisiblePutModal(false);
       setConfirmLoading(false);
     }, 1000);

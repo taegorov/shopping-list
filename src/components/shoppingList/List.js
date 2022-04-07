@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import Media from 'react-media';
 import { useNavigate } from 'react-router-dom'
-import { Table, Space, Card, Avatar } from 'antd';
-import { CheckSquareOutlined } from '@ant-design/icons';
+import { Table, Space, Card, Avatar, Checkbox } from 'antd';
+// import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
 import PostModal from "./PostModal";
@@ -12,7 +12,7 @@ import DeleteModal from "./DeleteModal";
 import './List.css';
 
 
-function List({ loadList, listItems, isAuthenticated, user }) {
+function List({ loadList, listItems, isAuthenticated, user, updateItem, activeItem }) {
 
   const columns = [
     {
@@ -63,7 +63,6 @@ function List({ loadList, listItems, isAuthenticated, user }) {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     loadList();
     if (isAuthenticated === false) {
@@ -78,7 +77,12 @@ function List({ loadList, listItems, isAuthenticated, user }) {
   console.log('user: ', user)
 
 
-
+  const onChecked = (e, singleItem) => {
+    const activeItemCopy = { ...singleItem };
+    activeItemCopy.completed = e.target.checked;
+    console.log('active item copy, its id: ', activeItemCopy, activeItemCopy.id);
+    updateItem(activeItemCopy, activeItemCopy.id)
+  }
 
   // // // === === === === === === === === === === // // //
   // // // === === === return is here === === === // // // 
@@ -96,7 +100,7 @@ function List({ loadList, listItems, isAuthenticated, user }) {
                   <Card
                     className="singleItem"
                     actions={[
-                      <CheckSquareOutlined key="check" />,
+                      <Checkbox onChange={e => onChecked(e, singleItem)} />,
                       <PutModal activeItem={singleItem} />,
                       <DeleteModal activeItem={singleItem} />,
                     ]}
@@ -108,7 +112,8 @@ function List({ loadList, listItems, isAuthenticated, user }) {
                     <p>Category: {singleItem.category} </p>
                     <p>Price: ${singleItem.price} </p>
                     <p>{singleItem.image} </p> */}
-                    <p>{singleItem.notes} </p>
+                    <p> {singleItem.notes} </p>
+                    <p>Completed: {String(singleItem.completed)} </p>
                     <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
                   </Card>
                 )

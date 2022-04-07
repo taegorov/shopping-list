@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../store/list';
 import { Button, Modal, Form, Input, InputNumber } from 'antd'
@@ -24,6 +24,7 @@ function PostModal(props) {
     setConfirmLoading(true);
     form.submit();
     setTimeout(() => {
+      setModalText('');
       setVisible(false);
       setConfirmLoading(false);
     }, 1000);
@@ -44,6 +45,12 @@ function PostModal(props) {
   };
 
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    form.setFieldsValue('')
+  }, [visible, form])
+
+
   // // // === === === return is here === === === // // // 
   return (
     <>
@@ -57,7 +64,6 @@ function PostModal(props) {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
-      // footer={null}
       >
         <Form
           name="addItem"
@@ -73,7 +79,6 @@ function PostModal(props) {
             label="Product Name"
             name="productName"
             rules={[{ required: true, message: 'Please add product name' }]}
-
           >
             <Input />
           </Form.Item>
