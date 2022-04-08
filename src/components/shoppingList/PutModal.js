@@ -17,7 +17,7 @@ function PutModal({ activeItem, updateItem }) {
   const { TextArea } = Input;
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
     form.setFieldsValue(activeItem)
   }, [visiblePutModal, activeItem, form])
 
