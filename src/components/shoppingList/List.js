@@ -100,7 +100,10 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
                   <Card
                     className="singleItem"
                     actions={[
-                      <Checkbox onChange={e => onChecked(e, singleItem)} />,
+                      <Checkbox
+                        checked={singleItem.completed}
+                        onChange={e => onChecked(e, singleItem)}
+                      />,
                       <PutModal activeItem={singleItem} />,
                       <DeleteModal activeItem={singleItem} />,
                     ]}
