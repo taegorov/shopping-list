@@ -20,7 +20,7 @@ export default function listItemReducer(state = initialState, action) {
     case 'ADD_LIST_ITEM':
       return {
         ...state,
-        shoppingList: [...state.shoppingList, payload]
+        shoppingList: [...state.shoppingList, ...payload]
       };
 
     case 'UPDATE_LIST_ITEM':
@@ -84,7 +84,7 @@ export const addItem = (newItem) => async (dispatch, getState) => {
       authorization: `bearer ${auth.user.token}`
     }
   });
-  // console.log('ITEM DATA: ', itemData)
+  console.log('ITEM DATA: ', itemData)
   if (!!itemData.data.success) {
     dispatch({
       type: 'ADD_LIST_ITEM',
@@ -93,6 +93,7 @@ export const addItem = (newItem) => async (dispatch, getState) => {
   } else {
     console.log('Something went awry')
   }
+
 };
 
 

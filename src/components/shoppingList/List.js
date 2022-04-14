@@ -7,6 +7,7 @@ import { Table, Space, Card, Avatar, Checkbox } from 'antd';
 import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
 import PostModal from "./PostModal";
+import BulkAddModal from "./BulkAddModal";
 import PutModal from "./PutModal";
 import DeleteModal from "./DeleteModal";
 import './List.css';
@@ -93,6 +94,7 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
         matches ? (
           <>
             <PostModal />
+            <BulkAddModal />
             <div>
               {listItems.map(singleItem => {
                 // console.log('single item: ', singleItem)

@@ -37,7 +37,7 @@ function PostModal(props) {
 
   const onFinish = (values) => {
     console.log('on finish POST', values)
-    props.addItem(values);
+    props.addItem([values]);
   }
 
   const onFinishFailed = (errorInfo) => {
