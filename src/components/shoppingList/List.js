@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import Media from 'react-media';
 import { useNavigate } from 'react-router-dom'
-import { Table, Space, Card, Avatar, Checkbox } from 'antd';
+import { Table, Space, Card, Avatar, Checkbox, Switch } from 'antd';
 // import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
@@ -14,6 +14,12 @@ import './List.css';
 
 
 function List({ loadList, listItems, isAuthenticated, user, updateItem, activeItem }) {
+
+  const [hide, setHide] = useState(false);
+
+  function handleHide() {
+    setHide(!hide);
+  }
 
   const columns = [
     {
@@ -93,35 +99,47 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
       {(matches) =>
         matches ? (
           <>
-            <PostModal />
-            <BulkAddModal />
+            <div id="buttonContainer">
+              <PostModal />
+              <BulkAddModal />
+              <div id="switchContainer">
+                <Switch id="completedSwitch" onChange={handleHide} />
+                <p>Hide Completed</p>
+              </div>
+            </div>
+
             <div>
               {listItems.map(singleItem => {
-                // console.log('single item: ', singleItem)
-                return (
-                  <Card
-                    className="singleItem"
-                    actions={[
-                      <Checkbox
-                        checked={singleItem.completed}
-                        onChange={e => onChecked(e, singleItem)}
-                      />,
-                      <PutModal activeItem={singleItem} />,
-                      <DeleteModal activeItem={singleItem} />,
-                    ]}
-                    title={singleItem.productName}
-                  // description="This is the description"
-                  >
-                    {/* <p>Aisle: {singleItem.aisle} </p>
+                if (hide === false || singleItem.completed === false) {
+                  // console.log('single item: ', singleItem)
+                  return (
+                    <Card
+                      className="singleItem"
+                      key={singleItem.id}
+                      actions={[
+                        <Checkbox
+                          checked={singleItem.completed}
+                          onChange={e => onChecked(e, singleItem)}
+                        />,
+                        <PutModal activeItem={singleItem} />,
+                        <DeleteModal activeItem={singleItem} />,
+                      ]}
+                      title={singleItem.productName}
+                    // description="This is the description"
+                    >
+                      {/* <p>Aisle: {singleItem.aisle} </p>
                     <p>Quantity: {singleItem.quantity} </p>
                     <p>Category: {singleItem.category} </p>
                     <p>Price: ${singleItem.price} </p>
                     <p>{singleItem.image} </p> */}
-                    <p> {singleItem.notes} </p>
-                    <p>Completed: {String(singleItem.completed)} </p>
-                    <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
-                  </Card>
-                )
+                      <p> {singleItem.notes} </p>
+                      <p>Completed: {String(singleItem.completed)} </p>
+                      <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
+                    </Card>
+                  )
+                } else {
+                  return null
+                }
               })
               }
             </div>

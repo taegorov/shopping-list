@@ -18,7 +18,7 @@ function Login({ login }) {
   return (
     <div>
       <p id="loginText">hello, login here</p>
-      <Button onClick={handleSubmit}>Log In</Button>
+      <Button id="loginButton" onClick={handleSubmit}>Log In</Button>
     </div>
   )
 }

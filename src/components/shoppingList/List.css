@@ -5,13 +5,31 @@
   margin: 1em;
 }
 
-#postButton {
-  margin: 1em;
+#buttonContainer {
+  font-family: 'Raleway', sans-serif;
+  /* background-color: antiquewhite; */
+  display: flexbox;
+  justify-content: center;
 }
 
-#actionsButton {
-  /* border: none; */
+#postButton {
+  margin: .5em;
 }
+
+switchContainer {
+  /* background-color: green; */
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+}
+
+#completedSwitch {
+  margin: .5em;
+}
+
+
+/* #actionsButton {
+} */
 
 .singleItem {
   margin: 0 auto;
