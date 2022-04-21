@@ -46,10 +46,7 @@ export default function listItemReducer(state = initialState, action) {
 }
 
 
-
-// // // === === === === === === === === === === // // //
 // // // === === ===  ACTIONS BELOW  === === === // // // 
-// // // === === === === === === === === === === // // //
 export const getList = () => {
   const listItems = initialState.shoppingList;
   console.log('👾 initial state', listItems);
