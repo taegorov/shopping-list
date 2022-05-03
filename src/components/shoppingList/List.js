@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import Media from 'react-media';
 import { useNavigate } from 'react-router-dom'
-import { Table, Space, Card, Avatar, Checkbox, Switch } from 'antd';
+import { Table, Space, Card, Avatar, Checkbox, Switch, Modal } from 'antd';
 // import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
@@ -16,6 +16,12 @@ import './List.css';
 function List({ loadList, listItems, isAuthenticated, user, updateItem, activeItem }) {
 
   const [hide, setHide] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [shownItem, setShownItem] = useState('');
+  // const [confirmLoading, setConfirmLoading] = useState(false);
+  // const [modalText, setModalText] = useState('');
+  // const [form] = Form.useForm();
+
 
   function handleHide() {
     setHide(!hide);
@@ -77,6 +83,8 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
     }
   }, [loadList, isAuthenticated, navigate])
 
+
+
   // allows adding Avatar to Card (from antd docs)
   const { Meta } = Card;
 
@@ -91,9 +99,41 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
     updateItem(activeItemCopy, activeItemCopy.id)
   }
 
-  // // // === === === === === === === === === === // // //
-  // // // === === === return is here === === === // // // 
-  // // // === === === === === === === === === === // // //
+
+  const showModal = (e, singleItem) => {
+    setVisibleModal(true);
+    setShownItem(singleItem)
+    // console.log('modal opened!')
+  };
+
+  // const handleOk = () => {
+  //   setModalText('Updating item...');
+  //   setConfirmLoading(true);
+  //   form.submit();
+  //   setTimeout(() => {
+  //     setModalText('');
+  //     setVisibleModal(false);
+  //     setConfirmLoading(false);
+  //   }, 1000);
+  // };
+
+  const handleCancel = () => {
+    setVisibleModal(false);
+  };
+
+  // const onFinish = (values) => {
+  //   console.log('on finish UPDATE:', values, activeItem.id)
+  //   updateItem(values, activeItem.id);
+  // }
+
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
+
+  // const title = `Update ${activeItem.productName}`
+
+
+
   return (
     <Media query="(max-width: 480px)">
       {(matches) =>
@@ -109,33 +149,57 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
             </div>
 
             <div>
+
+              <Modal
+                title={shownItem.productName}
+                // title="hi"
+                visible={visibleModal}
+                // onOk={handleOk}
+                // okText="Ok"
+                // confirmLoading={confirmLoading}
+                onCancel={handleCancel}
+                footer={null}
+              >
+                <p>Aisle: {shownItem.aisle} </p>
+                <p>Quantity: {shownItem.quantity} </p>
+                <p>Category: {shownItem.category} </p>
+                <p>Price: ${shownItem.price} </p>
+                <p>{shownItem.image} </p>
+                <p>Completed: {String(shownItem.completed)} </p>
+                <p>{shownItem.notes}</p>
+              </Modal>
+
+
               {listItems.map(singleItem => {
                 if (hide === false || singleItem.completed === false) {
                   // console.log('single item: ', singleItem)
                   return (
-                    <Card
-                      className="singleItem"
-                      key={singleItem.id}
-                      actions={[
-                        <Checkbox
-                          checked={singleItem.completed}
-                          onChange={e => onChecked(e, singleItem)}
-                        />,
-                        <PutModal activeItem={singleItem} />,
-                        <DeleteModal activeItem={singleItem} />,
-                      ]}
-                      title={singleItem.productName}
-                    // description="This is the description"
-                    >
-                      {/* <p>Aisle: {singleItem.aisle} </p>
-                    <p>Quantity: {singleItem.quantity} </p>
-                    <p>Category: {singleItem.category} </p>
-                    <p>Price: ${singleItem.price} </p>
-                    <p>{singleItem.image} </p> */}
-                      <p> {singleItem.notes} </p>
-                      <p>Completed: {String(singleItem.completed)} </p>
-                      <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
-                    </Card>
+                    <>
+                      <Card
+                        className="singleItem"
+                        hoverable
+                        key={singleItem.id}
+                        actions={[
+                          <Checkbox
+                            checked={singleItem.completed}
+                            onChange={e => onChecked(e, singleItem)}
+                          />,
+                          <PutModal activeItem={singleItem} />,
+                          <DeleteModal activeItem={singleItem} />,
+                        ]}
+                      // description="This is the description"
+                      >
+                        <Meta
+                          onClick={(e) => showModal(e, singleItem)}
+                          // onClick={showModal}
+                          title={singleItem.productName}
+                          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                          description={`Completed: ${String(singleItem.completed)}`}
+                        />
+                        {/* <p> {singleItem.notes} </p> */}
+                      </Card>
+
+                    </>
                   )
                 } else {
                   return null
@@ -156,7 +220,7 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
           </>
         )
       }
-    </Media>
+    </Media >
 
   )
 }
