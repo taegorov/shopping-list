@@ -1,12 +1,38 @@
+import cookie from 'react-cookies';
 import axios from 'axios';
 import { root } from '../helper'
+import { decodeJwt } from 'jose'
 require('dotenv').config();
 
 
-const initialState = {
-  user: null,
-  isAuthenticated: false,
-}
+// const initialState = {
+//   user: null,
+//   isAuthenticated: false,
+// }
+
+
+const checkForToken = () => {
+  const token = cookie.load('shoppingListLogin');
+  console.log(token, 'access_token')
+
+  if (!token) {
+    return {
+      user: {},
+      isAuthenticated: false
+    };
+  }
+
+  const decoded = decodeJwt(token);
+  console.log(decoded, 'decoded')
+
+  // const decoded = jwt.decode(access_token);
+  return { user: { ...decoded, token }, isAuthenticated: true };
+};
+
+// console.log(checkForToken(), 'checking for tken');
+
+const initialState = checkForToken();
+
 
 export default function authReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -41,13 +67,12 @@ export const login = (username, password) => async (dispatch, getState) => {
       authorization: `basic ${btoa(authString)}`
     }
   })
-  console.log('response', response)
+  console.log('LOGIN response', response)
+  console.log('token', response.data.data.token)
+  cookie.save('shoppingListLogin', response.data.data.token)
   dispatch({
     type: 'LOGIN',
     payload: response.data.data.user
   })
   return true;
 }
-
-
-//add localstorage set for login

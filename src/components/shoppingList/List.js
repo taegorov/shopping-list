@@ -164,7 +164,9 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
                 <p>Quantity: {shownItem.quantity} </p>
                 <p>Category: {shownItem.category} </p>
                 <p>Price: ${shownItem.price} </p>
-                <p>{shownItem.image} </p>
+                <div style={{ textAlign: 'center' }}>
+                  <img src={shownItem.image} alt={shownItem.productName} style={{ maxWidth: '100%', maxHeight: '200px', }} />
+                </div>
                 <p>Completed: {String(shownItem.completed)} </p>
                 <p>{shownItem.notes}</p>
               </Modal>
@@ -193,7 +195,9 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
                           onClick={(e) => showModal(e, singleItem)}
                           // onClick={showModal}
                           title={singleItem.productName}
-                          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                          avatar={singleItem.image ? <Avatar size={50} src={singleItem.image} /> : <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 50 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                          </svg>}
                           description={`Completed: ${String(singleItem.completed)}`}
                         />
                         {/* <p> {singleItem.notes} </p> */}
