@@ -167,8 +167,8 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
                 <div style={{ textAlign: 'center' }}>
                   <img src={shownItem.image} alt={shownItem.productName} style={{ maxWidth: '100%', maxHeight: '200px', }} />
                 </div>
-                <p>Completed: {String(shownItem.completed)} </p>
-                <p>{shownItem.notes}</p>
+                {/* <p>Completed: {String(shownItem.completed)} </p> */}
+                <p>Notes: {shownItem.notes}</p>
               </Modal>
 
 
