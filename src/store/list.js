@@ -85,7 +85,7 @@ export const addItem = (newItem) => async (dispatch, getState) => {
         url: `https://customsearch.googleapis.com/customsearch/v1?cx=${REACT_APP_CX_KEY}&key=${REACT_APP_GOOGLE_API_KEY}&num=1&q=${item.productName}`
       })
       console.log(googleInfo);
-      return { ...item, image: googleInfo.data.items[0].pagemap.cse_image[0].src || 'https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg' }
+      return { ...item, image: googleInfo.data.items[0].pagemap.cse_image[0].src }
     })
   )
 
