@@ -2,7 +2,6 @@ import cookie from 'react-cookies';
 import axios from 'axios';
 import { root } from '../helper'
 import { decodeJwt } from 'jose'
-require('dotenv').config();
 
 
 // const initialState = {
@@ -10,6 +9,7 @@ require('dotenv').config();
 //   isAuthenticated: false,
 // }
 
+console.log('root is', process.env)
 
 const checkForToken = () => {
   const token = cookie.load('shoppingListLogin');

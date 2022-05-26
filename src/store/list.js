@@ -74,9 +74,9 @@ export const loadList = () => async (dispatch, getState) => {
 
 export const addItem = (newItem) => async (dispatch, getState) => {
   const { REACT_APP_CX_KEY, REACT_APP_GOOGLE_API_KEY } = process.env;
-  // COMMENT BELOW OUT!!!!!!!!!!!!!!
-  console.log('IMPORTANT KEYS:', REACT_APP_CX_KEY, REACT_APP_GOOGLE_API_KEY)
-  ///////////////////////////////////////////////
+  // // COMMENT BELOW OUT!!!!!!!!!!!!!!
+  // console.log('IMPORTANT KEYS:', REACT_APP_CX_KEY, REACT_APP_GOOGLE_API_KEY)
+  // ///////////////////////////////////////////////
   const { auth } = getState();
   const newItemsWithImage = await Promise.all(
     newItem.map(async (item) => {
@@ -85,7 +85,7 @@ export const addItem = (newItem) => async (dispatch, getState) => {
         url: `https://customsearch.googleapis.com/customsearch/v1?cx=${REACT_APP_CX_KEY}&key=${REACT_APP_GOOGLE_API_KEY}&num=1&q=${item.productName}`
       })
       console.log(googleInfo);
-      return { ...item, image: googleInfo.data.items[0].pagemap.cse_image[0].src }
+      return { ...item, image: googleInfo?.data?.items?.[0]?.pagemap?.cse_image?.[0]?.src }
     })
   )
 
