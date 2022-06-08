@@ -3,6 +3,6 @@ import './Header.css';
 
 export default function Header() {
   return (
-    <p id="header">Shopping List</p>
+    <p id="header">EZ Shopping List</p>
   )
 }

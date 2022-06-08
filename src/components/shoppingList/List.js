@@ -8,6 +8,7 @@ import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
 import PostModal from "./PostModal";
 import BulkAddModal from "./BulkAddModal";
+import BulkDeleteModal from "./BulkDeleteModal";
 import PutModal from "./PutModal";
 import DeleteModal from "./DeleteModal";
 import './List.css';
@@ -142,6 +143,7 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
             <div id="buttonContainer">
               <PostModal />
               <BulkAddModal />
+              <BulkDeleteModal />
               <div id="switchContainer">
                 <Switch id="completedSwitch" onChange={handleHide} />
                 <p>Hide Completed</p>
