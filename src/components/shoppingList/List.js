@@ -136,7 +136,7 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
 
 
   return (
-    <Media query="(max-width: 480px)">
+    <Media query="(max-width: 2480px)">
       {(matches) =>
         matches ? (
           <>
@@ -217,6 +217,8 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
         ) : (
           <>
             <PostModal />
+            <BulkAddModal />
+            <BulkDeleteModal />
             <Table
               className="table"
               dataSource={listItems}
