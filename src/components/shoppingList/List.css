@@ -16,6 +16,10 @@
   margin: .5em;
 }
 
+#bulkDeleteButton {
+  margin: .5em;
+}
+
 switchContainer {
   /* background-color: green; */
   display: flexbox;

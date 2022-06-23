@@ -40,13 +40,18 @@ export default function listItemReducer(state = initialState, action) {
         ...state, shoppingList: state.shoppingList.filter(lineItem => lineItem.id !== payload.id)
       }
 
+    case 'DELETE_ALL_ITEMS':
+      return {
+        ...state, shoppingList: []
+      }
+
     default:
       return state;
   }
 }
 
 
-// // // === === ===  ACTIONS BELOW  === === === // // // 
+// // // === === ===  ACTIONS  === === === // // // 
 export const getList = () => {
   const listItems = initialState.shoppingList;
   console.log('👾 initial state', listItems);
@@ -54,6 +59,7 @@ export const getList = () => {
   // const response = products.filter(product => product.category === category);
   return listItems;
 }
+
 
 export const loadList = () => async (dispatch, getState) => {
   const { auth } = getState();
@@ -71,6 +77,7 @@ export const loadList = () => async (dispatch, getState) => {
     payload: response.data.data
   })
 }
+
 
 export const addItem = (newItem) => async (dispatch, getState) => {
   const { REACT_APP_CX_KEY, REACT_APP_GOOGLE_API_KEY } = process.env;
@@ -133,6 +140,7 @@ export const updateItem = (update, updateId) => async (dispatch, getState) => {
   }
 };
 
+
 export const deleteItem = (deleteId) => async (dispatch, getState) => {
   console.log('DELETE LINE ITEM', deleteId)
   const { auth } = getState();
@@ -149,6 +157,29 @@ export const deleteItem = (deleteId) => async (dispatch, getState) => {
     dispatch({
       type: 'DELETE_LIST_ITEM',
       payload: { id: deleteId }
+    });
+  } else {
+    console.log('Something went awry')
+  }
+};
+
+
+export const deleteAllItems = (userId) => async (dispatch, getState) => {
+  console.log('DELETE ALL ITEMS', userId)
+  const { auth } = getState();
+  const itemData = await axios({
+    method: 'delete',
+    // url: `http://localhost:3001/listitem/${deleteId}`,
+    url: `${root}/${userId}`,
+    data: userId,
+    headers: {
+      authorization: `bearer ${auth.user.token}`
+    }
+  });
+  if (!!itemData.data.success) {
+    dispatch({
+      type: 'DELETE_ALL_ITEMS',
+      payload: { id: userId }
     });
   } else {
     console.log('Something went awry')
