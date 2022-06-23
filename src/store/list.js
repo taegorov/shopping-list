@@ -170,7 +170,7 @@ export const deleteAllItems = (userId) => async (dispatch, getState) => {
   const itemData = await axios({
     method: 'delete',
     // url: `http://localhost:3001/listitem/${deleteId}`,
-    url: `${root}/${userId}`,
+    url: `${root}/list/${userId}`,
     data: userId,
     headers: {
       authorization: `bearer ${auth.user.token}`
