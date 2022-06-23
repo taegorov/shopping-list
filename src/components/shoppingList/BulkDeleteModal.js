@@ -11,7 +11,7 @@ function BulkDeleteModal({ user, activeItem, deleteAllItems }) {
   const [modalText, setModalText] = useState('');
 
 
-  // console.log('user is: ', user)
+  console.log('user is: ', user)
 
   const showModal = () => {
     setVisiblePutModal(true);
