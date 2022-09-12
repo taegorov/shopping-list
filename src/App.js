@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import List from './components/shoppingList/List';
 import Login from './components/login/Login';
 import Header from './components/header/Header'
+import RecipePicker from './components/recipes/RecipePicker'
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="yourlist" element={<List />} />
+          <Route path="recipepicker" element={<RecipePicker />} />
         </Routes>
       </main>
     </>
