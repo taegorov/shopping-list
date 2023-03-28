@@ -1,10 +1,13 @@
 // import { Button } from 'antd';
 // import { login } from '../../store/auth'
-// import { connect } from 'react-redux'
+import recipesReducer from '../../store/recipes'
+import { connect } from 'react-redux'
 // import { useNavigate } from 'react-router-dom'
 // import './Login.css'
 
-export default function RecipePicker() {
+function RecipePicker({ recipesReducer }) {
+
+  console.log('recipes: ', recipesReducer)
 
   return (
     <div>
@@ -14,8 +17,8 @@ export default function RecipePicker() {
   )
 }
 
-// const mapDispatchToProps = {
-//   login,
-// }
+const mapDispatchToProps = {
+  recipesReducer,
+}
 
-// export default connect(null, mapDispatchToProps)(RecipePicker);
+export default connect(null, mapDispatchToProps)(RecipePicker);

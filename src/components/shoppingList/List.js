@@ -28,52 +28,52 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
     setHide(!hide);
   }
 
-  const columns = [
-    {
-      title: 'Product Name',
-      dataIndex: 'productName',
-      key: 'productName',
-      // render: text => <a href>{text}</a>,
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
-    },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price'
-    },
-    {
-      title: 'Notes',
-      dataIndex: 'notes',
-      key: 'notes'
-    },
-    {
-      title: 'Aisle',
-      dataIndex: 'aisle',
-      key: 'aisle'
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      render: (text, record, index) => (
-        <>
-          <Space size="middle">
-            <PutModal activeItem={record} />
-            <DeleteModal activeItem={record} />
-          </Space>
-        </>
-      )
-    }
-  ];
+  // const columns = [
+  //   {
+  //     title: 'Product Name',
+  //     dataIndex: 'productName',
+  //     key: 'productName',
+  //     // render: text => <a href>{text}</a>,
+  //   },
+  //   {
+  //     title: 'Quantity',
+  //     dataIndex: 'quantity',
+  //     key: 'quantity',
+  //   },
+  //   {
+  //     title: 'Category',
+  //     dataIndex: 'category',
+  //     key: 'category',
+  //   },
+  //   {
+  //     title: 'Price',
+  //     dataIndex: 'price',
+  //     key: 'price'
+  //   },
+  //   {
+  //     title: 'Notes',
+  //     dataIndex: 'notes',
+  //     key: 'notes'
+  //   },
+  //   {
+  //     title: 'Aisle',
+  //     dataIndex: 'aisle',
+  //     key: 'aisle'
+  //   },
+  //   {
+  //     title: 'Actions',
+  //     dataIndex: 'actions',
+  //     key: 'actions',
+  //     render: (text, record, index) => (
+  //       <>
+  //         <Space size="middle">
+  //           <PutModal activeItem={record} />
+  //           <DeleteModal activeItem={record} />
+  //         </Space>
+  //       </>
+  //     )
+  //   }
+  // ];
 
   const navigate = useNavigate();
 
@@ -219,12 +219,12 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
             <PostModal />
             <BulkAddModal />
             <BulkDeleteModal />
-            <Table
+            {/* <Table
               className="table"
               dataSource={listItems}
               columns={columns}
               rowSelection
-            />
+            /> */}
           </>
         )
       }
