@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import Media from 'react-media';
 import { useNavigate } from 'react-router-dom'
-import { Table, Space, Card, Avatar, Checkbox, Switch, Modal } from 'antd';
+import { Card, Avatar, Checkbox, Switch, Modal, Button } from 'antd';
 // import { CheckSquareOutlined } from '@ant-design/icons';
 import { loadList, updateItem } from '../../store/list';
 // import { isAuthenticated, user } from '../../store/auth';
@@ -77,6 +77,11 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
 
   const navigate = useNavigate();
 
+  const handleSubmit = async () => {
+    navigate("/recipepicker")
+  }
+
+
   useEffect(() => {
     loadList();
     if (isAuthenticated === false) {
@@ -149,6 +154,9 @@ function List({ loadList, listItems, isAuthenticated, user, updateItem, activeIt
                 <p>Hide Completed</p>
               </div>
             </div>
+            <Button onClick={handleSubmit}>
+              Go To Recipe Picker
+            </Button>
 
             <div>
 
